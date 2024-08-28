@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import generics
 from .models import Temperature
@@ -19,7 +20,7 @@ class TemperatureCreateAPIView(generics.CreateAPIView):
     serializer_class = TemperatureSerializer
 
 def get_latest_readings(request):
-    latest_reading = Reading.objects.latest('timestamp')
+    latest_reading = Temperature.objects.latest('timestamp')
     data = {
         'temperature': latest_reading.temperature,
         'humidity': latest_reading.humidity
