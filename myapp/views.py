@@ -18,3 +18,10 @@ class TemperatureCreateAPIView(generics.CreateAPIView):
     queryset = Temperature.objects.all()
     serializer_class = TemperatureSerializer
 
+def get_latest_readings(request):
+    latest_reading = Reading.objects.latest('timestamp')
+    data = {
+        'temperature': latest_reading.temperature,
+        'humidity': latest_reading.humidity
+    }
+    return JsonResponse(data)

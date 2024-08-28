@@ -125,7 +125,7 @@
 
             // Function to fetch temperature and humidity from the API
             function fetchTemperatureAndHumidity() {
-                fetch('/environment/api/get-readings/', {
+                fetch('/api/get-readings/', {
                     method: 'GET',
                 })
                     .then(response => response.json())
