@@ -34,59 +34,6 @@
             margin-top: 0;
             margin-bottom: 1.5rem;
         }
-        .card {
-            width: 300px;
-            min-height: 250px;
-            border-radius: 15px;
-            background: #ffffff;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            padding: 20px;
-            text-align: center;
-            margin: 20px;
-            transition: transform 0.3s ease-in-out;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-        }
-        .icon {
-            font-size: 4em;
-            margin-bottom: 10px;
-            color: #ffa07a;
-        }
-        .value {
-            font-size: 2.5em;
-            color: #333;
-        }
-        .label {
-            font-size: 1.1em;
-            color: #4682b4;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                padding-inline: 20px;
-            }
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 16px;
-            color: #4682b4;
-        }
-        .footer span {
-            color: #1e90ff;
-        }
-        /* Graph container */
         .graph-container {
             width: 90%;
             max-width: 800px;
@@ -109,34 +56,14 @@
         <p>A modern and effortless way of sensing and displaying environmental conditions.</p>
     </div>
 
-    <div class="container">
-        <div class="card">
-            <div class="icon">🌡</div>
-            <div class="value" id="temperature">...</div>
-            <div class="label">Temperature</div>
-        </div>
-        <div class="card">
-            <div class="icon">💧</div>
-            <div class="value" id="humidity">...</div>
-            <div class="label">Humidity</div>
-        </div>
-    </div>
-
     <!-- Graph Container -->
     <div class="graph-container">
         <canvas id="temperatureChart"></canvas>
         <canvas id="humidityChart"></canvas>
     </div>
 
-    <div class="footer">
-        Made by Gain Nambeye <span>❤😁</span>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const temperatureElement = document.getElementById('temperature');
-            const humidityElement = document.getElementById('humidity');
-
             // Set up the charts using Chart.js
             const temperatureCtx = document.getElementById('temperatureChart').getContext('2d');
             const humidityCtx = document.getElementById('humidityChart').getContext('2d');
@@ -194,10 +121,6 @@
                     .then(data => {
                         const currentTemperature = data.temperature;
                         const currentHumidity = data.humidity;
-                        
-                        // Update the displayed values
-                        temperatureElement.textContent = `${currentTemperature} °C`;
-                        humidityElement.textContent = `${currentHumidity} %`;
 
                         // Update the charts
                         const currentTime = new Date().toLocaleTimeString();
