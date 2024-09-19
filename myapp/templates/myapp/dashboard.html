@@ -187,6 +187,37 @@
             setInterval(fetchTemperatureAndHumidity, 1000); // 1000ms = 1 second
         });
     </script>
-
+    
+        <div id="relay-control">
+        <label class="switch">
+            <input type="checkbox" id="relayToggle" onchange="toggleRelay(this)">
+            <span class="slider round"></span>
+        </label>
+        <p id="relayStatus">Relay is OFF</p>
+    </div>
+    <script>
+    function toggleRelay(checkbox) {
+        const state = checkbox.checked ? 'true' : 'false';
+        fetch('/relay-control/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}' // Ensure CSRF token is included
+            },
+            body: JSON.stringify({
+                'relay_state': state
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                document.getElementById('relayStatus').innerText = checkbox.checked ? 'Relay is ON' : 'Relay is OFF';
+            } else if (data.error) {
+                alert(data.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
 </body>
 </html>
