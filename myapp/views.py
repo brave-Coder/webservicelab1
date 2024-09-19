@@ -4,7 +4,7 @@ from rest_framework import generics
 from .models import Temperature
 from .serializer import TemperatureSerializer
 from django.http import JsonResponse
-
+from django.views.decorators.csrf import csrf_exempt
 def dashboard(request):
     return render(request, 'myapp/dashboard.html')
 
@@ -30,7 +30,7 @@ def get_latest_readings(request):
 
 relay_state = False  # Initially, relay is OFF
 
-@csrf_exempt
+@csrf_exempt 
 def relay_control_view(request):
     global relay_state
 
