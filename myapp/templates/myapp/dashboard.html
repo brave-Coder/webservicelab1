@@ -187,17 +187,8 @@
             setInterval(fetchTemperatureAndHumidity, 1000); // 1000ms = 1 second
         });
     </script>
-    
-        <div id="relay-control">
-        <label class="switch">
-            <input type="checkbox" id="relayToggle" onchange="toggleRelay(this)">
-            <span class="slider round"></span>
-        </label>
-        <p id="relayStatus">Relay is OFF</p>
-    </div>
     <script>
-    function toggleRelay(checkbox) {
-        const state = checkbox.checked ? 'true' : 'false';
+        function controlRelay(state) {
         fetch('/relay-control/', {
             method: 'POST',
             headers: {
@@ -211,7 +202,7 @@
         .then(response => response.json())
         .then(data => {
             if (data.message) {
-                document.getElementById('relayStatus').innerText = checkbox.checked ? 'Relay is ON' : 'Relay is OFF';
+                alert(data.message); // Display the response message (Relay ON/OFF)
             } else if (data.error) {
                 alert(data.error);
             }
@@ -219,5 +210,10 @@
         .catch(error => console.error('Error:', error));
     }
 </script>
+
+<div id="relay-control">
+    <button id="relayOnBtn" onclick="controlRelay('true')">Turn Relay ON</button>
+    <button id="relayOffBtn" onclick="controlRelay('false')">Turn Relay OFF</button>
+</div>
 </body>
 </html>
